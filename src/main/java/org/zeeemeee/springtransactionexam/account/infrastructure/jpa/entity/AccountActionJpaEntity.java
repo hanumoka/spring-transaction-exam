@@ -41,8 +41,4 @@ public class AccountActionJpaEntity extends BaseEntity {
     @Column(name = "last_log_out_at")
     private LocalDateTime lastLogOutAt;
 
-    @Version
-    @Column(name = "version")
-    private Integer version;
-
 }

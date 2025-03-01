@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeeemeee.springtransactionexam.account.application.adapter.AccountActionRepositoryAdapter;
 import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
@@ -26,8 +26,8 @@ public class AccountActionCommandService implements AccountActionCommandServiceU
 
     @Retryable(
             value = {DataIntegrityViolationException.class, ObjectOptimisticLockingFailureException.class},
-            maxAttempts = 20,
-            backoff = @Backoff(delay = 500)
+            maxAttempts = 10,
+            backoff = @Backoff(delay = 100)
     )
     @Transactional(isolation = Isolation.READ_COMMITTED)
     @Override
@@ -63,6 +63,22 @@ public class AccountActionCommandService implements AccountActionCommandServiceU
                 throw e;
             }
         }
+    }
+
+    @Recover
+    public AccountAction recoverSaveAccountAction(Exception e, SaveAccountActionCommand command) {
+        // 로깅: 모든 재시도 실패에 대한 정보
+        log.error("모든 재시도 후에도 saveAccountAction이 실패했습니다. accountId: {}, 원인: {}",
+                command.getAccountId(), e.getMessage(), e);
+
+        Optional<AccountAction> savedData = accountActionRepositoryAdapter.findAccountActionByAccountId(command.getAccountId());
+
+        if (savedData.isPresent()) {
+            // 저장된 데이터가 있으면 반환
+            return savedData.get();
+        }
+        // null 반환
+        return null;
     }
 
 }

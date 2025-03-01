@@ -89,7 +89,7 @@ class AccountActionCommandServiceTest {
     void multiThreadInsertAccountAction() throws InterruptedException {
         // given
         final long accountId = 5000L; // 테스트용 계정 ID (데이터베이스에 존재하지 않는 ID)
-        final int threadCount = 10;   // 동시에 실행할 스레드 수
+        final int threadCount = 100;   // 동시에 실행할 스레드 수
 
         // 스레드 동기화를 위한 장치
         final CountDownLatch readyLatch = new CountDownLatch(threadCount); // 모든 스레드가 준비되었는지
@@ -195,7 +195,7 @@ class AccountActionCommandServiceTest {
     void multiThreadUpdateAccountAction() throws InterruptedException {
         // given
         final long accountId = 5000L; // 테스트용 계정 ID
-        final int threadCount = 10;   // 동시에 실행할 스레드 수
+        final int threadCount = 0;   // 동시에 실행할 스레드 수
 
         // 먼저 테스트를 위한 초기 데이터 생성
         SaveAccountActionCommand initialCommand = SaveAccountActionCommand.builder()

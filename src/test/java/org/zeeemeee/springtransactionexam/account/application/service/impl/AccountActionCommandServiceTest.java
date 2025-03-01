@@ -2,19 +2,19 @@ package org.zeeemeee.springtransactionexam.account.application.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.zeeemeee.springtransactionexam.account.application.service.dto.AccountActionDto;
+import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
 import org.zeeemeee.springtransactionexam.account.application.service.dto.command.SaveAccountActionCommand;
-import org.zeeemeee.springtransactionexam.account.application.service.usecase.AccountActionCommandServiceUseCase;
+import org.zeeemeee.springtransactionexam.account.application.type.AccountActionType;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
 
 
 @Tag("integration")
@@ -31,15 +31,37 @@ class AccountActionCommandServiceTest {
     @Autowired
     private AccountActionCommandService accountActionCommandService;
 
+    @DisplayName("insert 성공")
     @Test
-    void saveAccountAction() {
+    void insertAccountAction() {
         //given
-        SaveAccountActionCommand saveAccountActionCommand = new SaveAccountActionCommand();
+        SaveAccountActionCommand saveAccountActionCommand = SaveAccountActionCommand.builder()
+                .accountId(2L)
+                .accountActionType(AccountActionType.LOGIN_IN)
+                .actionAt(LocalDateTime.now())
+                .build();
 
         //when
-        AccountActionDto accountActionDto = accountActionCommandService.saveAccountAction(saveAccountActionCommand);
+        AccountAction accountAction = accountActionCommandService.saveAccountAction(saveAccountActionCommand);
 
         //then
-        Assertions.assertThat(accountActionDto).isNotNull();
+        Assertions.assertThat(accountAction).isNotNull();
+    }
+
+    @DisplayName("update 성공")
+    @Test
+    void updateAccountAction() {
+        //given
+        SaveAccountActionCommand saveAccountActionCommand = SaveAccountActionCommand.builder()
+                .accountId(1L)
+                .accountActionType(AccountActionType.LOGIN_IN)
+                .actionAt(LocalDateTime.now())
+                .build();
+
+        //when
+        AccountAction accountAction = accountActionCommandService.saveAccountAction(saveAccountActionCommand);
+
+        //then
+        Assertions.assertThat(accountAction).isNotNull();
     }
 }

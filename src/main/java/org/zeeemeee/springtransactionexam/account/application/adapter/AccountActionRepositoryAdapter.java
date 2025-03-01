@@ -1,10 +1,14 @@
 package org.zeeemeee.springtransactionexam.account.application.adapter;
 
-import org.zeeemeee.springtransactionexam.account.application.service.dto.AccountActionDto;
+import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
 
 import java.util.Optional;
 
 public interface AccountActionRepositoryAdapter {
 
-    Optional<AccountActionDto> findAccountActionByAccountId(long accountId);
+    Optional<AccountAction> findAccountActionByAccountId(long accountId);
+
+    AccountAction create(AccountAction accountAction);
+
+    AccountAction update(AccountAction accountAction);
 }

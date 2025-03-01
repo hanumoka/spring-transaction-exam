@@ -13,15 +13,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SaveAccountActionCommand {
 
-    @Positive
-    private long accountActionId;
+    private Long accountActionId;
 
     @Positive
-    private long accountId;
+    @NotNull
+    private Long accountId;
 
     @NotNull
     private AccountActionType accountActionType;
 
     @NotNull
     private LocalDateTime actionAt;
+
 }

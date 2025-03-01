@@ -1,3 +1,5 @@
+select 1;
+
 -- ===============================
 -- ACCOUNT_ACTION 테이블 생성
 -- ===============================
@@ -17,9 +19,9 @@ CREATE SEQUENCE account_action_id_seq
 CREATE TABLE account_action (
                                 id BIGINT DEFAULT nextval('account_action_id_seq') NOT NULL,
                                 account_id BIGINT NOT NULL,
-                                login_count BIGINT NOT NULL DEFAULT 0,
+                                login_count BIGINT NULL DEFAULT 0,
                                 last_login_at TIMESTAMP NULL,
-                                log_out_count BIGINT NOT NULL DEFAULT 0,
+                                log_out_count BIGINT NULL DEFAULT 0,
                                 last_log_out_at TIMESTAMP NULL,
                                 created_by VARCHAR(255) NOT NULL,
                                 created_at TIMESTAMP NOT NULL,
@@ -27,7 +29,8 @@ CREATE TABLE account_action (
                                 updated_at TIMESTAMP NOT NULL,
                                 version INTEGER,
 
-                                CONSTRAINT pk_account_action PRIMARY KEY (id)
+                                CONSTRAINT pk_account_action PRIMARY KEY (id),
+                                CONSTRAINT uk_account_action_account_id UNIQUE (account_id)
 );
 
 -- 테이블에 대한 코멘트
@@ -46,14 +49,10 @@ COMMENT ON COLUMN account_action.updated_by IS '수정자';
 COMMENT ON COLUMN account_action.updated_at IS '수정일시';
 COMMENT ON COLUMN account_action.version IS '버전 (낙관적 락에 사용)';
 
--- 외래 키 제약 조건 추가
--- ALTER TABLE account_action
---     ADD CONSTRAINT fk_account_action_account_id
---         FOREIGN KEY (account_id)
---             REFERENCES account (id);
 
 -- 조회 성능 최적화를 위한 인덱스
 CREATE INDEX idx_account_action_account_id ON account_action (account_id);
 
 -- 인덱스에 대한 코멘트
 COMMENT ON INDEX idx_account_action_account_id IS '계정 ID로 계정 활동 정보를 조회하기 위한 인덱스';
+COMMENT ON CONSTRAINT uk_account_action_account_id ON account_action IS '한 계정당 하나의 활동 정보만 존재할 수 있도록 보장하는 고유 제약조건';

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeeemeee.springtransactionexam.account.application.adapter.AccountActionRepositoryAdapter;
-import org.zeeemeee.springtransactionexam.account.application.service.dto.AccountActionDto;
+import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
 import org.zeeemeee.springtransactionexam.account.application.service.dto.command.SaveAccountActionCommand;
 import org.zeeemeee.springtransactionexam.account.application.service.usecase.AccountActionCommandServiceUseCase;
 
@@ -20,19 +20,19 @@ public class AccountActionCommandService implements AccountActionCommandServiceU
 
     @Transactional
     @Override
-    public AccountActionDto saveAccountAction(SaveAccountActionCommand command) {
+    public AccountAction saveAccountAction(SaveAccountActionCommand command) {
 
-        AccountActionDto result = null;
+        AccountAction result;
 
-        Optional<AccountActionDto> savedData = accountActionRepositoryAdapter.findAccountActionByAccountId(command.getAccountId());
+        Optional<AccountAction> savedData = accountActionRepositoryAdapter.findAccountActionByAccountId(command.getAccountId());
 
         if(savedData.isEmpty()){
-//            AccountActionDto accountActionDto = AccountActionDto.from(command);
-//            result = accountActionRepositoryAdapter.create(accountActionDto);
+            AccountAction accountAction = AccountAction.create(command);
+            result = accountActionRepositoryAdapter.create(accountAction);
         }else{
-//            AccountActionDto accountActionDto = savedData.get();
-//            accountActionDto.update(command);
-//            result = accountActionRepositoryAdapter.update(accountActionDto);
+            AccountAction savedAccountAcction = savedData.get();
+            AccountAction accountAction = savedAccountAcction.update(command);
+            result = accountActionRepositoryAdapter.update(accountAction);
         }//else
 
         return result;

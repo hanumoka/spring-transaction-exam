@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.zeeemeee.springtransactionexam.account.application.service.dto.command.SaveAccountActionCommand;
 import org.zeeemeee.springtransactionexam.common.BaseEntity;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,7 @@
 package org.zeeemeee.springtransactionexam.account.application.service.dto;
 
 import lombok.Data;
+import org.zeeemeee.springtransactionexam.account.application.service.dto.command.SaveAccountActionCommand;
 
 import java.time.LocalDateTime;
 
@@ -19,4 +20,5 @@ public class AccountActionDto {
     private LocalDateTime lastLogOutAt;
 
     private Integer version;
+
 }

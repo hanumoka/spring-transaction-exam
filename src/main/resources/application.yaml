@@ -3,6 +3,10 @@ spring:
   application:
     name: spring-transaction-exam
 
+  threads:
+    virtual:
+      enabed: true
+
   # SQL ???? ?? ??
   sql:
     init:

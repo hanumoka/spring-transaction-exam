@@ -3,6 +3,10 @@ spring:
   application:
     name: spring-transaction-exam
 
+  threads:
+    virtual:
+      enabed: true
+
   # SQL 스크립트 실행 설정
   sql:
     init:

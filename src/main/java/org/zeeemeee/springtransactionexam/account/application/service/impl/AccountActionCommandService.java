@@ -27,7 +27,7 @@ public class AccountActionCommandService implements AccountActionCommandServiceU
     @Retryable(
             value = {DataIntegrityViolationException.class, ObjectOptimisticLockingFailureException.class},
             maxAttempts = 10,
-            backoff = @Backoff(delay = 100)
+            backoff = @Backoff(delay = 500)
     )
     @Transactional(isolation = Isolation.READ_COMMITTED)
     @Override

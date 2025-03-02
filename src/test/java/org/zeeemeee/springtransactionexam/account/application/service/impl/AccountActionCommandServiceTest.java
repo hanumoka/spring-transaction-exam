@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "/data/data.sql",
 })
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // 각 테스트 메소드 실행 후에 컨텍스트 초기화
 @SpringBootTest
 class AccountActionCommandServiceTest {
 

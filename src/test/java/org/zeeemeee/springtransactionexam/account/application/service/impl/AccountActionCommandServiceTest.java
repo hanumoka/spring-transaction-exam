@@ -89,7 +89,7 @@ class AccountActionCommandServiceTest {
     void multiThreadInsertAccountAction() throws InterruptedException {
         // given
         final long accountId = 5000L; // 테스트용 계정 ID (데이터베이스에 존재하지 않는 ID)
-        final int threadCount = 50;   // 동시에 실행할 스레드 수
+        final int threadCount = 100;   // 동시에 실행할 스레드 수
 
         // 스레드 동기화를 위한 장치
         final CountDownLatch readyLatch = new CountDownLatch(threadCount); // 모든 스레드가 준비되었는지
@@ -175,7 +175,7 @@ class AccountActionCommandServiceTest {
             // 로그인 횟수가 threadCount와 일치하는지 확인
             // 참고: 이 부분은 비즈니스 로직에 따라 다를 수 있음
             // 예를 들어 각 로그인 시 카운트가 증가한다면 아래 검증이 필요할 수 있음
-            // assertThat(savedRecord.get().getLoginCount()).isEqualTo(threadCount);
+             assertThat(savedRecord.get().getLoginCount()).isEqualTo(threadCount);
         }
 
         // 스레드 풀 정리

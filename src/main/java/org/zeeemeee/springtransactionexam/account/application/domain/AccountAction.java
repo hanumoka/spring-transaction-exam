@@ -1,4 +1,4 @@
-package org.zeeemeee.springtransactionexam.account.application.service.domain;
+package org.zeeemeee.springtransactionexam.account.application.domain;
 
 
 import lombok.AllArgsConstructor;

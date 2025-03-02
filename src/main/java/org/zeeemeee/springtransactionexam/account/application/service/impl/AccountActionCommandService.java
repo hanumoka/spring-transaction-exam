@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeeemeee.springtransactionexam.account.application.adapter.AccountActionRepositoryAdapter;
-import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
+import org.zeeemeee.springtransactionexam.account.application.domain.AccountAction;
 import org.zeeemeee.springtransactionexam.account.application.service.dto.command.SaveAccountActionCommand;
 import org.zeeemeee.springtransactionexam.account.application.service.usecase.AccountActionCommandServiceUseCase;
 

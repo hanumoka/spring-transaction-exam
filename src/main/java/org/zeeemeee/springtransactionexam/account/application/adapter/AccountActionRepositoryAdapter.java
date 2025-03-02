@@ -1,6 +1,6 @@
 package org.zeeemeee.springtransactionexam.account.application.adapter;
 
-import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
+import org.zeeemeee.springtransactionexam.account.application.domain.AccountAction;
 
 import java.util.Optional;
 

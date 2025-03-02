@@ -6,7 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Repository;
 import org.zeeemeee.springtransactionexam.account.application.adapter.AccountActionRepositoryAdapter;
-import org.zeeemeee.springtransactionexam.account.application.service.domain.AccountAction;
+import org.zeeemeee.springtransactionexam.account.application.domain.AccountAction;
 import org.zeeemeee.springtransactionexam.account.infrastructure.jpa.entity.AccountActionJpaEntity;
 import org.zeeemeee.springtransactionexam.account.infrastructure.jpa.repository.AccountActionJpaRepository;
 
